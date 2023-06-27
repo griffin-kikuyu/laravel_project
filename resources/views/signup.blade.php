@@ -1,37 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>Registration Form</title>
-  <style>
-    body {
-      background-color: lightblue;
-    }
-  </style>
+  <!-- ... -->
 </head>
 <body>
-@include('navbar')
+  @include('navbar')
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <h1>Signup Form</h1>
         <form action="/process_signup" method="post">
-        @csrf
-          @if (session::has('success'))
-              <p>{{session::get('success')}}</p>
-        
+          @csrf
+          @if ($errors->any())
+            <div class="alert alert-danger">
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
           @endif
-
+          @if (Session::has('success'))
+            <p>{{ Session::get('success') }}</p>
+          @endif
           <div class="form-group">
             <label for="username">Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your name" value="{{ old('username') }}">
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" value="{{ old('email') }}">
           </div>
           <div class="form-group">
             <label for="password">Password</label>

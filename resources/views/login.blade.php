@@ -41,6 +41,11 @@
         {{-- <form action="{{route("login")}}" method="POST"> --}}
         <form action="{{ route('login') }}" method="POST">
           @csrf
+          @if ($errors->any())
+            <div class="alert alert-danger">
+                {{ $errors->first() }}
+            </div>
+          @endif
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">

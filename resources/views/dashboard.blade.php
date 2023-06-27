@@ -74,24 +74,26 @@
             <nav>
                 <ul>
                     <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Apply Loan</a></li>
-                    <li><a href="#">Reports</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
+                    <li><a href="{{ route('dashboard.profile') }}">Profile</a></li>
+                    <li><a href="{{ route('dashboard.loans') }}">Apply Loan</a></li>
+                    <li><a href="{{ route('dashboard.reports') }}">Reports</a></li>
+                    <li><a href="{{ route('dashboard.settings') }}">Settings</a></li>
+                    <li><form action="/logout" method="POST">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form></li>
                 </ul>
             </nav>
         </div>
+        
         <div class="main-content">
-            <h1>Main content.</h1>
-            <p>Welcome: <span style="color: red;" class="user-name">{{ Auth::user()->username }}</span>!</p>
-            <p>Email: <span class="user-details">{{ Auth::user()->email }}</span></p>
-            <p>Password: <span class="user-details">{{ Auth::user()->password }}</span></p>
+            @if(Request::is('dashboard'))
+            <h1>Dashboard</h1>
+            @endif
+            @yield('dashboard-content')
+            {{-- <p>Welcome: <span style="color: red;" class="user-name">{{ Auth::user()->username }}</span>!</p>
+            <p>Email: <span class="user-details">{{ Auth::user()->email }}</span></p> --}}
+            
       
         </div>
     </div>
